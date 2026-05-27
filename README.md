@@ -1,13 +1,13 @@
 # VedaAI — AI Assessment Creator
 
-An AI-powered assessment creator that allows teachers to create assignments, generate question papers using AI, and view/download structured output.
+An enterprise-grade, AI-powered assessment platform designed for educators. VedaAI allows teachers to seamlessly create assignments, generate comprehensive question papers using artificial intelligence, and manage structured educational content.
 
 ![VedaAI](https://img.shields.io/badge/VedaAI-Assessment_Creator-red)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![Express](https://img.shields.io/badge/Express-5-green)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────────┐     REST + WS     ┌─────────────────────┐
@@ -26,14 +26,14 @@ An AI-powered assessment creator that allows teachers to create assignments, gen
 
 ### Request Flow
 
-1. Teacher fills the assignment form → submits
-2. Backend creates assignment in MongoDB → adds job to BullMQ queue
-3. Worker picks up job → calls Google Gemini API with structured prompt
-4. AI generates question paper → worker saves to MongoDB + caches in Redis
-5. WebSocket emits real-time updates → frontend auto-refreshes
-6. Teacher views structured paper → can download as PDF or regenerate
+1. Teacher fills out the assignment form and submits the request.
+2. The backend creates an assignment record in MongoDB and adds a job to the BullMQ queue.
+3. A background worker picks up the job and calls the Google Gemini API using a structured prompt.
+4. The AI generates the question paper. The worker saves the result to MongoDB and caches it in Redis.
+5. A WebSocket connection emits real-time progress updates to the frontend.
+6. The teacher views the structured paper and can download it as a PDF or request a regeneration.
 
-## 🚀 Tech Stack
+## Technology Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -41,11 +41,11 @@ An AI-powered assessment creator that allows teachers to create assignments, gen
 | **Backend** | Node.js, Express, TypeScript |
 | **Database** | MongoDB Atlas |
 | **Cache/Queue** | Redis Cloud, BullMQ |
-| **AI** | Google Gemini 2.0 Flash |
+| **AI Integration** | Google Gemini 2.0 Flash |
 | **Real-time** | WebSocket (Socket.IO) |
-| **PDF** | Puppeteer (server-side rendering) |
+| **PDF Generation** | Puppeteer (Server-side rendering) |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 veda_ass/
@@ -73,14 +73,14 @@ veda_ass/
 └── README.md
 ```
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### Prerequisites
 
-- Node.js 18+ 
-- MongoDB Atlas account (free tier)
-- Redis Cloud account (free tier)
-- Google Gemini API key (free at aistudio.google.com)
+- Node.js 18 or higher
+- MongoDB Atlas account
+- Redis Cloud account
+- Google Gemini API key (Available at aistudio.google.com)
 
 ### 1. Clone the repository
 
@@ -116,58 +116,58 @@ npm install
 npm run dev
 ```
 
-### 4. Open the app
+### 4. Open the Application
 
 - Frontend: http://localhost:3000
 - Backend: http://localhost:5000
 - Health Check: http://localhost:5000/api/health
 
-## 🎯 Features
+## Features
 
 ### Core Features
-- ✅ **Assignment Creation** — Multi-field form with file upload, question type config, steppers
-- ✅ **AI Question Generation** — Structured prompts → Gemini API → parsed JSON output
-- ✅ **Real-time Updates** — WebSocket notifications during generation
-- ✅ **Structured Output** — Sections, difficulty badges, marks, answer key
-- ✅ **Background Processing** — BullMQ job queue with Redis
+- **Assignment Creation**: Multi-field form with file upload, question type configuration, and steppers.
+- **AI Question Generation**: Translates structured prompts into parsed JSON outputs via the Gemini API.
+- **Real-time Updates**: WebSocket notifications keep users informed during the generation process.
+- **Structured Output**: Organized sections, difficulty badges, marks distribution, and answer keys.
+- **Background Processing**: Reliable BullMQ job queue integrated with Redis.
 
 ### Bonus Features
-- ✅ **PDF Export** — Server-side PDF generation with Puppeteer
-- ✅ **Regenerate** — Re-queue generation with one click
-- ✅ **Difficulty Badges** — Color-coded Easy/Moderate/Hard tags
-- ✅ **Search & Filter** — Search assignments by title
-- ✅ **Mobile Responsive** — Adapts to mobile screens
-- ✅ **Redis Caching** — Cached assignment results for fast retrieval
+- **PDF Export**: Server-side PDF generation using Puppeteer.
+- **Regenerate**: One-click functionality to re-queue document generation.
+- **Difficulty Badges**: Color-coded Easy, Moderate, and Hard tags for clear assessment grading.
+- **Search & Filter**: Quickly locate assignments by title.
+- **Mobile Responsive**: Seamlessly adapts to mobile screens with bottom tab navigation.
+- **Redis Caching**: Cached assignment results ensure rapid retrieval and optimal performance.
 
-## 📡 API Endpoints
+## API Endpoints
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `POST` | `/api/assignments` | Create assignment + queue generation |
+| `POST` | `/api/assignments` | Create assignment and queue generation |
 | `GET` | `/api/assignments` | List all assignments |
-| `GET` | `/api/assignments/:id` | Get single assignment |
+| `GET` | `/api/assignments/:id` | Get single assignment details |
 | `DELETE` | `/api/assignments/:id` | Delete assignment |
-| `POST` | `/api/assignments/:id/regenerate` | Regenerate paper |
-| `GET` | `/api/assignments/:id/pdf` | Download PDF |
-| `GET` | `/api/health` | Health check |
+| `POST` | `/api/assignments/:id/regenerate` | Regenerate question paper |
+| `GET` | `/api/assignments/:id/pdf` | Download question paper as PDF |
+| `GET` | `/api/health` | Service health check |
 
-## 🔌 WebSocket Events
+## WebSocket Events
 
 | Event | Direction | Description |
 |-------|-----------|-------------|
-| `join:assignment` | Client → Server | Join room for updates |
-| `generation:started` | Server → Client | Generation began |
-| `generation:progress` | Server → Client | Progress update |
-| `generation:completed` | Server → Client | Paper ready |
-| `generation:failed` | Server → Client | Generation error |
+| `join:assignment` | Client → Server | Join room for live updates |
+| `generation:started` | Server → Client | Generation process initiated |
+| `generation:progress` | Server → Client | Current progress update |
+| `generation:completed` | Server → Client | Question paper is ready |
+| `generation:failed` | Server → Client | Generation encountered an error |
 
-## 🎨 Design Approach
+## Design Approach
 
-The UI faithfully implements the provided Figma designs:
-- **Dark sidebar** with VedaAI branding and navigation
-- **Assignment cards** in a 2-column grid with dropdown menus
-- **Create form** with drag-drop upload, date picker, dynamic question type rows
-- **Output page** styled like a real exam paper with sections and answer key
-- **Mobile responsive** with bottom tab navigation
+The UI faithfully implements the provided design specifications to ensure a premium user experience:
+- **Dark Sidebar**: Professional branding and intuitive navigation.
+- **Assignment Cards**: Clean, 2-column grid layout with interactive dropdown menus.
+- **Create Form**: Modern interface with drag-and-drop uploads, date pickers, and dynamic question type rows.
+- **Output Page**: Styled to mirror a physical exam paper, complete with distinct sections and an answer key.
+- **Mobile Responsiveness**: Ensures functionality across all devices with dedicated mobile navigation.
 
-Built with vanilla CSS using CSS custom properties for theming consistency.
+Built using vanilla CSS and CSS custom properties for cohesive theming and performance.
