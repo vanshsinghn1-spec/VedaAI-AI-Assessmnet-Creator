@@ -20,7 +20,7 @@ const httpServer = createServer(app);
 // Middleware
 app.use(
   cors({
-    origin: config.clientUrl,
+    origin: true,
     credentials: true,
   })
 );
