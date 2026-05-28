@@ -8,49 +8,35 @@ export default function TopBar() {
   const pathname = usePathname();
 
   let title = 'Assignment';
-  let showBack = true;
-  let backHref = '/assignments';
 
   if (pathname === '/') {
     title = 'Home Dashboard';
-    showBack = false;
   } else if (pathname === '/groups') {
     title = 'My Groups';
-    showBack = false;
   } else if (pathname === '/assignments') {
     title = 'Assignments';
-    showBack = false;
   } else if (pathname === '/assignments/create') {
     title = 'Create Assignment';
-    showBack = true;
-    backHref = '/assignments';
   } else if (pathname?.startsWith('/assignments/')) {
     title = 'Assignment Details';
-    showBack = true;
-    backHref = '/assignments';
   } else if (pathname === '/ai-toolkit') {
     title = "AI Teacher's Toolkit";
-    showBack = false;
   } else if (pathname === '/library') {
     title = 'My Library';
-    showBack = false;
   } else if (pathname === '/settings') {
     title = 'Settings';
-    showBack = false;
   }
 
   const handleBack = () => {
-    router.push(backHref);
+    router.back();
   };
 
   return (
     <header className="topbar">
       <div className="topbar-left">
-        {showBack && (
-          <button className="topbar-back" onClick={handleBack}>
-            <ArrowLeft size={20} />
-          </button>
-        )}
+        <button className="topbar-back" onClick={handleBack}>
+          <ArrowLeft size={20} />
+        </button>
         <div className="topbar-breadcrumb">
           <span className="topbar-breadcrumb-icon"><LayoutGrid size={18} /></span>
           <span>{title}</span>
