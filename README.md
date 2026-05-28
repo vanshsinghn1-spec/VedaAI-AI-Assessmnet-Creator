@@ -2,6 +2,8 @@
 
 An enterprise-grade, AI-powered assessment platform designed for educators. VedaAI allows teachers to seamlessly create assignments, generate comprehensive question papers using artificial intelligence, and manage structured educational content.
 
+**Live Demo:** [https://veda-frontend-murex.vercel.app/](https://veda-frontend-murex.vercel.app/)
+
 ![VedaAI](https://img.shields.io/badge/VedaAI-Assessment_Creator-red)
 ![Next.js](https://img.shields.io/badge/Next.js-15-black)
 ![Express](https://img.shields.io/badge/Express-5-green)
@@ -39,11 +41,18 @@ An enterprise-grade, AI-powered assessment platform designed for educators. Veda
 |-------|-----------|
 | **Frontend** | Next.js 15, TypeScript, Zustand, Socket.IO Client |
 | **Backend** | Node.js, Express, TypeScript |
-| **Database** | MongoDB Atlas |
-| **Cache/Queue** | Redis Cloud, BullMQ |
+| **Database** | MongoDB Atlas (Cloud DBaaS) |
+| **Cache/Queue** | Redis Cloud (Upstash), BullMQ |
 | **AI Integration** | Google Gemini 2.0 Flash |
 | **Real-time** | WebSocket (Socket.IO) |
 | **PDF Generation** | Puppeteer (Server-side rendering) |
+| **CI/CD & Hosting**| Vercel (Frontend), Render (Backend) |
+
+## ☁️ Cloud Computing & DevOps (CI/CD)
+
+This project leverages modern Cloud Computing and automated CI/CD pipelines:
+- **PaaS & DBaaS**: Instead of manual server provisioning, the app utilizes fully-managed cloud databases (MongoDB Atlas) and cloud caching (Upstash Redis). The backend and frontend are hosted on Render and Vercel, which handle dynamic scaling, load balancing, and SSL automatically.
+- **Continuous Integration & Deployment (CI/CD)**: The GitHub repository is integrated with Vercel and Render via webhooks. Every `git push` automatically triggers isolated cloud builds. If the build succeeds, the platforms perform a zero-downtime deployment to production, ensuring continuous delivery of features.
 
 ## Project Structure
 
@@ -138,6 +147,14 @@ npm run dev
 - **Search & Filter**: Quickly locate assignments by title.
 - **Mobile Responsive**: Seamlessly adapts to mobile screens with bottom tab navigation.
 - **Redis Caching**: Cached assignment results ensure rapid retrieval and optimal performance.
+
+### ✨ Creativity Bonus (Extra Pages)
+To provide a complete product experience, several fully-designed placeholder pages were built to demonstrate future capabilities:
+- **Home Dashboard**: Displays high-level metrics (Total Assignments, Active Groups) and dynamically lists recent assignments.
+- **My Groups**: A grid-based layout for managing student classes, complete with student counts and subject-coded icons.
+- **AI Teacher's Toolkit**: A hub showcasing potential future tools (Auto Grader, Lesson Planner, Rubric Creator) with "Coming Soon" badges.
+- **My Library**: A clean repository page displaying past documents and PDFs with download actions.
+- **Settings**: A functional-looking configuration page for editing profile information and school details.
 
 ## API Endpoints
 
